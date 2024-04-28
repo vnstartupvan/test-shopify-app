@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "9073d7fdbb58553ed00142f3b806c375"
+name = "ikn"
+handle = "ikn"
+application_url = "https://creating-lamp-search-sans.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "ysydfashion.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://creating-lamp-search-sans.trycloudflare.com/auth/callback",
+  "https://creating-lamp-search-sans.trycloudflare.com/auth/shopify/callback",
+  "https://creating-lamp-search-sans.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-04"
+
+[pos]
+embedded = false
