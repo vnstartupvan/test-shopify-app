@@ -32,3 +32,19 @@ model QRCode {
   scans            Int      @default(0)
   createdAt        DateTime @default(now())
 }
+
+model Popup {
+    id             Int      @id @default(autoincrement())
+    title          String
+    imageURL       String
+    shop           String
+    createdAt        DateTime @default(now())
+}
+
+model PopupConfig {
+    id             Int      @id @default(autoincrement())
+    Interval       Boolean
+    TimeOut        Int @default(0)
+    shop           String
+    createdAt        DateTime @default(now())
+}

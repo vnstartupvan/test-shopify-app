@@ -1,5 +1,5 @@
 {
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "app/routes/app._index.jsx", "app/routes/app.qrcode.$id.jsx", "app/models/QRCode.server.js"],
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "app/routes/app._index.jsx", "app/routes/app.qrcodes.$id.jsx", "app/models/QRCode.server.js"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "strict": true,

@@ -3,7 +3,7 @@
 client_id = "9073d7fdbb58553ed00142f3b806c375"
 name = "ikn"
 handle = "ikn"
-application_url = "https://creating-lamp-search-sans.trycloudflare.com"
+application_url = "https://romance-adverse-terminals-relates.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://creating-lamp-search-sans.trycloudflare.com/auth/callback",
-  "https://creating-lamp-search-sans.trycloudflare.com/auth/shopify/callback",
-  "https://creating-lamp-search-sans.trycloudflare.com/api/auth/callback"
+  "https://romance-adverse-terminals-relates.trycloudflare.com/auth/callback",
+  "https://romance-adverse-terminals-relates.trycloudflare.com/auth/shopify/callback",
+  "https://romance-adverse-terminals-relates.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

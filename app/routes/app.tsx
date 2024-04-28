@@ -25,6 +25,8 @@ export default function App() {
           Home
         </Link>
         <Link to="/app/additional">Additional page</Link>
+        <Link to="/app/popup">Create new Popup page</Link>
+        <Link to="/app/admin">Popup Admin Page</Link>
       </ui-nav-menu>
       <Outlet />
     </AppProvider>
