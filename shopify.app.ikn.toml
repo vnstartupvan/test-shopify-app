@@ -3,7 +3,7 @@
 client_id = "9073d7fdbb58553ed00142f3b806c375"
 name = "ikn"
 handle = "ikn"
-application_url = "https://ag-bored-drinks-identify.trycloudflare.com"
+application_url = "https://upgrade-vacuum-tub-badge.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ag-bored-drinks-identify.trycloudflare.com/auth/callback",
-  "https://ag-bored-drinks-identify.trycloudflare.com/auth/shopify/callback",
-  "https://ag-bored-drinks-identify.trycloudflare.com/api/auth/callback"
+  "https://upgrade-vacuum-tub-badge.trycloudflare.com/auth/callback",
+  "https://upgrade-vacuum-tub-badge.trycloudflare.com/auth/shopify/callback",
+  "https://upgrade-vacuum-tub-badge.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

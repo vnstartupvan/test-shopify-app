@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import db from "../db.server";
 import {
   Form,
   FormLayout,
@@ -7,27 +8,36 @@ import {
   Button,
   Page,
 } from "@shopify/polaris";
+import { useLoaderData, useSubmit } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { authenticate } from "../shopify.server";
+
+export async function loader() {
+  // provides data to the component
+  let popup = {
+    title: "title",
+    des: "des",
+    imageURL: "imageURL",
+  };
+
+  return json(popup);
+}
 
 export default function PopupPage() {
+  const popupData = useLoaderData();
   const [title, setTitle] = useState("");
+  const [des, setDes] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const [timeOut, setTimeOut] = useState("");
-  const [checked, setChecked] = useState(false);
-
-  const handleChangeTimeOut = useCallback((value) => setTimeOut(value), []);
+  const submit = useSubmit();
 
   const handleSubmit = useCallback(() => {
-    setTitle("");
-    setImageURL("");
-    setTimeOut("");
-    setChecked(fasle);
+    console.log({title, des, imageURL});
+    submit({ title, des, imageURL }, { method: "post" });
+    // setTitle("");
+    // setImageURL("");
   }, []);
 
-
-  const handleChangeInterval = useCallback(
-    (newChecked) => setChecked(newChecked),
-    [],
-  );
+  const handleChangeDes = useCallback((value) => setDes(value), []);
 
   const handleTitleChange = useCallback((value) => setTitle(value), []);
 
@@ -35,9 +45,9 @@ export default function PopupPage() {
 
   return (
     <Page>
-      <h1>Popup Admin</h1>
+      <h1>Add new popup</h1>
 
-      <Form onSubmit={handleSubmit}>
+      <Form method="POST" onSubmit={handleSubmit} action="/app/popup">
         <FormLayout>
           <TextField value={title} onChange={handleTitleChange} label="Title" />
 
@@ -47,22 +57,39 @@ export default function PopupPage() {
             label="Image URL"
           />
 
-          <Checkbox
-            label="Interval"
-            checked={checked}
-            onChange={handleChangeInterval}
-          />
-
           <TextField
-            value={timeOut}
-            onChange={handleChangeTimeOut}
-            label="Set Time Out (s)"
-            type="number"
+            value={des}
+            onChange={handleChangeDes}
+            label="Description"
           />
 
-          <Button submit>Submit</Button>
+          <Button submit={true}>Submit</Button>
         </FormLayout>
       </Form>
     </Page>
   );
+}
+
+export async function action({ request }) {
+  // updates persistent data
+  const { session } = await authenticate.admin(request);
+  const { shop } = session;
+  let formData = await request.formData();
+
+  formData = Object.fromEntries(formData.entries());
+  console.log("dataform", formData);
+
+  const popup = await db.popup.create({
+    data: {
+      title: formData.title,
+      description: formData.des,
+      imageURL: formData.imageURL,
+      shop,
+    },
+  });
+
+  console.log("insterted new popup: ", popup);
+  return json({
+    message: "insterted new popup",
+  });
 }
