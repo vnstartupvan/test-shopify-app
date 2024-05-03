@@ -24,6 +24,11 @@ const shopify = shopifyApp({
       deliveryMethod: DeliveryMethod.Http,
       callbackUrl: "/webhooks",
     },
+    APP_INSTALLED: {
+      // Define the delivery method and callback URL for the app_installed webhook
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/app_installed", // Specify the endpoint to handle app_installed webhook
+    },
   },
   hooks: {
     afterAuth: async ({ session }) => {

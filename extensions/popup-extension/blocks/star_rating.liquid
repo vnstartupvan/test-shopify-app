@@ -1,0 +1,131 @@
+{% assign avg_rating = block.settings.product.metafields.demo.avg_rating.value | round %}
+<span style="color:{{ block.settings.colour }}">
+  {% render 'stars', rating: avg_rating %}
+</span>
+{% if avg_rating >= 4 %}
+  <br>
+  <img src="{{ "thumbs-up.png" | asset_img_url: '15x' }}" height="15" width="15" loading="lazy">
+  {{ 'ratings.home.recommendationText' | t }}
+{% endif %}
+
+<div id="popupContainer"></div>
+
+
+<style>
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+}
+
+</style>
+
+
+<script defer>
+
+
+
+  let popupMessages = []; // Array of popup messages
+  const popupContainer = document.getElementById("popupContainer");
+  let currentPopupIndex = 0;
+
+  function createPopup(message) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+      <div class="popup-content">
+        <span class="close">&times;</span>
+        <p>${message}</p>
+      </div>
+    `;
+    return popup;
+  }
+
+  function showPopup(index) {
+    console.log('show popup', index, popupMessages)
+    const popups = document.querySelectorAll(".popup");
+    popups.forEach((popup, i) => {
+      if (i === index) {
+        popup.style.display = "block";
+      } else {
+        popup.style.display = "none";
+      }
+    });
+  }
+
+  function nextPopup() {
+    currentPopupIndex = (currentPopupIndex + 1) % popupMessages.length;
+    console.log(currentPopupIndex)
+    showPopup(currentPopupIndex);
+  }
+
+  function closePopup() {
+    const popups = document.querySelectorAll(".popup");
+    popups[currentPopupIndex].style.display = "none";
+  }
+
+ 
+
+
+
+const requestOptions = {
+  method: "GET",
+  redirect: "follow"
+};
+console.log('fetching')
+
+fetch("https://ag-bored-drinks-identify.trycloudflare.com/api/popup", requestOptions)
+  .then((response) => response.text())
+  .then((result) => {
+    console.log(result)
+
+    popupMessages = JSON.parse(result).data;
+
+     // Generate popups from array
+  popupMessages.forEach(message => {
+    const popup = createPopup(message.id);
+    popupContainer.appendChild(popup);
+  });
+
+    document.querySelectorAll(".close").forEach(closeButton => {
+    closeButton.addEventListener("click", closePopup);
+  });
+
+    //init
+    showPopup(currentPopupIndex);
+
+    //run interval
+    setInterval(nextPopup, 5000)
+
+  }).catch((error) => console.log(error));
+
+
+</script>
+
+{% schema %}
+{
+  "name": "Star Rating",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0000" }
+  ]
+}
+{% endschema %}
+

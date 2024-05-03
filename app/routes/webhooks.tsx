@@ -17,6 +17,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       }
 
       break;
+    case "APP_INSTALLED":
+      //add script here
     case "CUSTOMERS_DATA_REQUEST":
     case "CUSTOMERS_REDACT":
     case "SHOP_REDACT":

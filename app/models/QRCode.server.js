@@ -13,8 +13,6 @@ export async function getQRCode(id, graphql) {
 }
 
 export async function getQRCodes(shop, graphql) {
-  console.log('qr code log',db.qRCode)
-  console.log('seasion code log',db.session)
 
   const qrCodes = await db.qRCode.findMany({
     where: { shop },
