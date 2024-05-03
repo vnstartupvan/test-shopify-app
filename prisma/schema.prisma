@@ -36,7 +36,7 @@ model QRCode {
 model Popup {
     id             Int      @id @default(autoincrement())
     title          String
-    imageURL       String
+    imageURL       String 
     description    String
     shop           String
     createdAt        DateTime @default(now())
@@ -47,5 +47,22 @@ model PopupConfig {
     Interval       Boolean
     TimeOut        Int @default(0)
     shop           String
-    createdAt        DateTime @default(now())
+    createdAt      DateTime @default(now())
+}
+
+model PopupPage {
+    id             Int      @id @default(autoincrement())
+    page           String
+    createdAt      DateTime @default(now())
+    shop           String
+}
+
+model PopupConditionConfig {
+    displayAllProductPage        Boolean
+    displayAllCollectionPage     Boolean
+    displayOnSpecificProductPages    Boolean 
+    displayOnSpecificCollectionPages Boolean
+    displayOnSpecificURLPages             Boolean
+    shop                         String @unique @id
+    createdAt                    DateTime @default(now())
 }
